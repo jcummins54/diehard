@@ -1,0 +1,34 @@
+{
+  "name": "aws-rest-api-offline",
+  "version": "1.0.0",
+  "description": "Serverless REST API with DynamoDB and offline support",
+  "repository": "",
+  "author": "Christoph Gysin <christoph.gysin@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint ./",
+    "start": "serverless offline start"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.12.0",
+    "serverless": "^1.25.0",
+    "serverless-dynamodb-local": "^0.2.18",
+    "serverless-offline": "^3.8.3",
+    "uuid": "^2.0.3"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "7",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "3.x",
+    "eslint-config-babel": "^7.0.2",
+    "eslint-plugin-jest": "^21.3.2",
+    "jest": "^22.1.4",
+    "jest-cli": "^22.1.4",
+    "jest-image-snapshot": "^2.3.0"
+  }
+}

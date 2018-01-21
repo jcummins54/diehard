@@ -1,0 +1,61 @@
+{
+  "env": {
+    "es6": true,
+    "node": true,
+    "jest/globals": true,
+    "browser": true
+  },
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:jest/recommended"
+  ],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "complexity": [
+      "error",
+      12
+    ],
+    "no-console": 0,
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "keyword-spacing": [
+      "error",
+      {
+        "before": true,
+        "after": true
+      }
+    ],
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/valid-expect": "error",
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "strict": 1
+  },
+  "plugins": [
+    "jest"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "3 5 4",
+  "winner": "5 first",
+  "solutions": [
+    {
+      "name": "3",
+      "steps": ["step1", "step2", "step3"]
+    },
+    {
+      "name": "5",
+      "steps": ["step1", "step2"]
+    }
+  ]
+}
