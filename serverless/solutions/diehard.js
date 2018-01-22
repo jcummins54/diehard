@@ -1,4 +1,6 @@
 module.exports.findSolutions = (id) => {
+  const RECURSION_LIMIT = 3756;
+
   const parts = id.split("-");
   if (parts.length !== 3) {
     return "error";
@@ -23,7 +25,6 @@ module.exports.findSolutions = (id) => {
   let stepList = [[], []];
   let results = [];
   let round = 1;
-  let winner = null;
 
   function doAction(action, targetJug, otherJug) {
     let nextAction = "empty";
@@ -82,55 +83,76 @@ module.exports.findSolutions = (id) => {
     const actionResult = doAction(action, jug, other);
     const nextAction = actionResult[0];
     const nextJug = actionResult[1];
-    const hash = `{ jugs: [${jugs[0].amount}, ${jugs[1].amount}], nextAction: "${nextAction}", nextJug: "${nextJug.name}" }`;
+    const stepData = {
+      jugs: [jugs[0].amount, jugs[1].amount],
+      nextAction: nextAction,
+      nextJug: nextJug,
+    };
+    const hash = JSON.stringify(stepData);
 
     count += 1;
 
     if (jug.amount === target || other.amount === target) {
-      endRound(count, `Target ${target} achieved!`, hash);
+      endRound(count, true, hash);
       return count;
     }
 
-    stepList[round - 1].push(hash);
+    stepList[round - 1].push(stepData);
 
     if (stepMap[round - 1][hash]) {
-      endRound(count, "No answer found. Repeated", hash);
+      endRound(count, false, hash);
       return count;
     }
     stepMap[round - 1][hash] = true;
 
     // Don't hit the call stack
-    if (count === 3756) {
+    if (count === RECURSION_LIMIT) {
       // We don't need to save this to the db
       stepList[round - 1] = [];
-      endRound(count, "No answer found.", hash);
+      endRound(count, false, hash);
       return count;
     }
     return step(nextJug, nextAction, count);
   }
 
   function endRound(count, result, hash) {
-    // const roundResults = {
-    //   count: count,
-    //   result: result,
-    //   hash: hash,
-    // };
-    // results.push(roundResults);
-    results.push(`Round ${round}: Step ${count} - ${result} hash: ${hash}`);
+    const roundResults = {
+      count: count,
+      result: result,
+      hash: hash,
+    };
+    results.push(roundResults);
     round++;
   }
 
   // Round 1
-  const count1 = step(jugs[0], "fill", 1);
+  step(jugs[0], "fill", 1);
 
   // Reset
   jugs[0].amount = jugs[1].amount = 0.0;
 
   // Round 2
-  const count2 = step(jugs[1], "fill", 1);
-  if (count1 !== count2) {
-    winner = (count1 < count2) ? 1 : 2;
+  step(jugs[1], "fill", 1);
+
+  function findWinner() {
+    if (!results[0].result && !results[1].result) {
+      // No solution
+      return "no solution";
+    } else if (results[0].result && results[1].result) {
+      // Both have a solution
+      if (results[0].count === results[1].count) {
+        return "tie";
+      }
+      return (results[0].count < results[1].count) ? "1" : "2";
+    } else if (results[0].result) {
+      // Only 1 has a solution
+      return "1";
+    }
+    // Only 2 has a solution
+    return "2";
   }
+
+  const winner = findWinner();
 
   return {
     winner: winner,

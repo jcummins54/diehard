@@ -1,5 +1,6 @@
 const dynamodb = require("./dynamodb");
 const solve = require("./solve");
+const validator = require("./validators/validator");
 
 module.exports.get = (event, context, callback) => {
   const params = {
@@ -18,6 +19,17 @@ module.exports.get = (event, context, callback) => {
         statusCode: error.statusCode || 501,
         headers: { "Content-Type": "text/plain" },
         body: "Couldn't fetch the solution item.",
+      });
+      return;
+    }
+
+    const errors = validator.validate(event.pathParameters);
+    if (errors.length > 0) {
+      console.error(errors);
+      callback(null, {
+        statusCode: 400,
+        headers: { "Content-Type": "application/json" },
+        body: errors,
       });
       return;
     }

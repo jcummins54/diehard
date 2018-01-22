@@ -11,6 +11,8 @@
     "start": "serverless offline start"
   },
   "dependencies": {
+    "ajv": "^6.0.1",
+    "ajv-errors": "^1.0.0",
     "aws-sdk": "^2.12.0",
     "serverless": "^1.25.0",
     "serverless-dynamodb-local": "^0.2.18",

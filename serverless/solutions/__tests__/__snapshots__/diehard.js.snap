@@ -3,69 +3,503 @@
 exports[`findSolutions should solve the puzzle 1`] = `
 Object {
   "results": Array [
-    "Round 1: Step 9 - Target 4 achieved! hash: { jugs: [0, 4], nextAction: \\"fill\\", nextJug: \\"jug 1\\" }",
-    "Round 2: Step 7 - Target 4 achieved! hash: { jugs: [3, 4], nextAction: \\"pour\\", nextJug: \\"jug 1\\" }",
+    Object {
+      "count": 9,
+      "hash": "{\\"jugs\\":[0,4],\\"nextAction\\":\\"fill\\",\\"nextJug\\":{\\"name\\":\\"jug 1\\",\\"amount\\":0,\\"size\\":3}}",
+      "result": true,
+    },
+    Object {
+      "count": 7,
+      "hash": "{\\"jugs\\":[3,4],\\"nextAction\\":\\"pour\\",\\"nextJug\\":{\\"name\\":\\"jug 1\\",\\"amount\\":3,\\"size\\":3}}",
+      "result": true,
+    },
   ],
   "stepList": Array [
     Array [
-      "{ jugs: [3, 0], nextAction: \\"pour\\", nextJug: \\"jug 1\\" }",
-      "{ jugs: [0, 3], nextAction: \\"fill\\", nextJug: \\"jug 1\\" }",
-      "{ jugs: [3, 3], nextAction: \\"pour\\", nextJug: \\"jug 1\\" }",
-      "{ jugs: [1, 5], nextAction: \\"empty\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [1, 0], nextAction: \\"pour\\", nextJug: \\"jug 1\\" }",
-      "{ jugs: [0, 1], nextAction: \\"fill\\", nextJug: \\"jug 1\\" }",
-      "{ jugs: [3, 1], nextAction: \\"pour\\", nextJug: \\"jug 1\\" }",
+      Object {
+        "jugs": Array [
+          3,
+          0,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 3,
+          "name": "jug 1",
+          "size": 3,
+        },
+      },
+      Object {
+        "jugs": Array [
+          0,
+          3,
+        ],
+        "nextAction": "fill",
+        "nextJug": Object {
+          "amount": 3,
+          "name": "jug 1",
+          "size": 3,
+        },
+      },
+      Object {
+        "jugs": Array [
+          3,
+          3,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 3,
+          "name": "jug 1",
+          "size": 3,
+        },
+      },
+      Object {
+        "jugs": Array [
+          1,
+          5,
+        ],
+        "nextAction": "empty",
+        "nextJug": Object {
+          "amount": 4,
+          "name": "jug 2",
+          "size": 5,
+        },
+      },
+      Object {
+        "jugs": Array [
+          1,
+          0,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 3,
+          "name": "jug 1",
+          "size": 3,
+        },
+      },
+      Object {
+        "jugs": Array [
+          0,
+          1,
+        ],
+        "nextAction": "fill",
+        "nextJug": Object {
+          "amount": 3,
+          "name": "jug 1",
+          "size": 3,
+        },
+      },
+      Object {
+        "jugs": Array [
+          3,
+          1,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 3,
+          "name": "jug 1",
+          "size": 3,
+        },
+      },
     ],
     Array [
-      "{ jugs: [0, 5], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [3, 2], nextAction: \\"empty\\", nextJug: \\"jug 1\\" }",
-      "{ jugs: [0, 2], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [2, 0], nextAction: \\"fill\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [2, 5], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
+      Object {
+        "jugs": Array [
+          0,
+          5,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 4,
+          "name": "jug 2",
+          "size": 5,
+        },
+      },
+      Object {
+        "jugs": Array [
+          3,
+          2,
+        ],
+        "nextAction": "empty",
+        "nextJug": Object {
+          "amount": 3,
+          "name": "jug 1",
+          "size": 3,
+        },
+      },
+      Object {
+        "jugs": Array [
+          0,
+          2,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 4,
+          "name": "jug 2",
+          "size": 5,
+        },
+      },
+      Object {
+        "jugs": Array [
+          2,
+          0,
+        ],
+        "nextAction": "fill",
+        "nextJug": Object {
+          "amount": 4,
+          "name": "jug 2",
+          "size": 5,
+        },
+      },
+      Object {
+        "jugs": Array [
+          2,
+          5,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 4,
+          "name": "jug 2",
+          "size": 5,
+        },
+      },
     ],
   ],
-  "winner": 2,
+  "winner": "2",
 }
 `;
 
 exports[`findSolutions should solve the puzzle 2`] = `
 Object {
   "results": Array [
-    "Round 1: Step 3 - Target 7 achieved! hash: { jugs: [7, 4], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
-    "Round 2: Step 27 - Target 7 achieved! hash: { jugs: [7, 0], nextAction: \\"fill\\", nextJug: \\"jug 2\\" }",
+    Object {
+      "count": 3,
+      "hash": "{\\"jugs\\":[7,4],\\"nextAction\\":\\"pour\\",\\"nextJug\\":{\\"name\\":\\"jug 2\\",\\"amount\\":4,\\"size\\":4}}",
+      "result": true,
+    },
+    Object {
+      "count": 27,
+      "hash": "{\\"jugs\\":[7,0],\\"nextAction\\":\\"fill\\",\\"nextJug\\":{\\"name\\":\\"jug 2\\",\\"amount\\":0,\\"size\\":4}}",
+      "result": true,
+    },
   ],
   "stepList": Array [
     Array [
-      "{ jugs: [11, 0], nextAction: \\"pour\\", nextJug: \\"jug 1\\" }",
+      Object {
+        "jugs": Array [
+          11,
+          0,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 7,
+          "name": "jug 1",
+          "size": 11,
+        },
+      },
     ],
     Array [
-      "{ jugs: [0, 4], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [4, 0], nextAction: \\"fill\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [4, 4], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [8, 0], nextAction: \\"fill\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [8, 4], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [11, 1], nextAction: \\"empty\\", nextJug: \\"jug 1\\" }",
-      "{ jugs: [0, 1], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [1, 0], nextAction: \\"fill\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [1, 4], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [5, 0], nextAction: \\"fill\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [5, 4], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [9, 0], nextAction: \\"fill\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [9, 4], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [11, 2], nextAction: \\"empty\\", nextJug: \\"jug 1\\" }",
-      "{ jugs: [0, 2], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [2, 0], nextAction: \\"fill\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [2, 4], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [6, 0], nextAction: \\"fill\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [6, 4], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [10, 0], nextAction: \\"fill\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [10, 4], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [11, 3], nextAction: \\"empty\\", nextJug: \\"jug 1\\" }",
-      "{ jugs: [0, 3], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [3, 0], nextAction: \\"fill\\", nextJug: \\"jug 2\\" }",
-      "{ jugs: [3, 4], nextAction: \\"pour\\", nextJug: \\"jug 2\\" }",
+      Object {
+        "jugs": Array [
+          0,
+          4,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          4,
+          0,
+        ],
+        "nextAction": "fill",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          4,
+          4,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          8,
+          0,
+        ],
+        "nextAction": "fill",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          8,
+          4,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          11,
+          1,
+        ],
+        "nextAction": "empty",
+        "nextJug": Object {
+          "amount": 7,
+          "name": "jug 1",
+          "size": 11,
+        },
+      },
+      Object {
+        "jugs": Array [
+          0,
+          1,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          1,
+          0,
+        ],
+        "nextAction": "fill",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          1,
+          4,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          5,
+          0,
+        ],
+        "nextAction": "fill",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          5,
+          4,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          9,
+          0,
+        ],
+        "nextAction": "fill",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          9,
+          4,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          11,
+          2,
+        ],
+        "nextAction": "empty",
+        "nextJug": Object {
+          "amount": 7,
+          "name": "jug 1",
+          "size": 11,
+        },
+      },
+      Object {
+        "jugs": Array [
+          0,
+          2,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          2,
+          0,
+        ],
+        "nextAction": "fill",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          2,
+          4,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          6,
+          0,
+        ],
+        "nextAction": "fill",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          6,
+          4,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          10,
+          0,
+        ],
+        "nextAction": "fill",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          10,
+          4,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          11,
+          3,
+        ],
+        "nextAction": "empty",
+        "nextJug": Object {
+          "amount": 7,
+          "name": "jug 1",
+          "size": 11,
+        },
+      },
+      Object {
+        "jugs": Array [
+          0,
+          3,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          3,
+          0,
+        ],
+        "nextAction": "fill",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
+      Object {
+        "jugs": Array [
+          3,
+          4,
+        ],
+        "nextAction": "pour",
+        "nextJug": Object {
+          "amount": 0,
+          "name": "jug 2",
+          "size": 4,
+        },
+      },
     ],
   ],
-  "winner": 1,
+  "winner": "1",
 }
 `;
