@@ -20,7 +20,6 @@ module.exports.delete = (event, context, callback) => {
   };
 
   function createTable(seed) {
-    console.log("createTable with seed:", seed);
     dynamodb.createTable(seed.Table, error => {
       // handle potential errors
       if (error) {

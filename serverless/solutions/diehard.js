@@ -92,12 +92,12 @@ module.exports.findSolutions = (id) => {
 
     count += 1;
 
+    stepList[round - 1].push(stepData);
+
     if (jug.amount === target || other.amount === target) {
       endRound(count, true, hash);
       return count;
     }
-
-    stepList[round - 1].push(stepData);
 
     if (stepMap[round - 1][hash]) {
       endRound(count, false, hash);
