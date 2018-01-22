@@ -1,19 +1,18 @@
 {
-  "name": "diehardsls",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Jeremy Cummins",
-  "license": "MIT",
+  "name": "front",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "aws-sdk": "^2.6.1",
-    "bluebird": "^3.4.6",
+    "axios": "^0.17.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-scripts": "1.1.0"
   },
-  "devDependencies": {
-    "serverless-offline": "git+https://github.com/dherault/serverless-offline.git",
-    "serverless-dynamodb-local": "0.2.17"
+  "scripts": {
+    "start": "PORT=3006 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }

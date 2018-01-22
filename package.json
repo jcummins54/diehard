@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start:front": "cd front && yarn start",
+    "start:api": "cd serverless && yarn start",
+    "start": "npm-run-all --parallel start:front start:api"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.2"
+  }
+}

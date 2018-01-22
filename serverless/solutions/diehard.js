@@ -86,7 +86,7 @@ module.exports.findSolutions = (id) => {
     const stepData = {
       jugs: [jugs[0].amount, jugs[1].amount],
       nextAction: nextAction,
-      nextJug: nextJug,
+      nextJug: nextJug.name,
     };
     const hash = JSON.stringify(stepData);
 

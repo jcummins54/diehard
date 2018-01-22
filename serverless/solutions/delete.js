@@ -19,11 +19,38 @@ module.exports.delete = (event, context, callback) => {
     TableName: process.env.DYNAMODB_TABLE,
   };
 
+  function createTable(seed) {
+    console.log("createTable with seed:", seed);
+    dynamodb.createTable(seed.Table, error => {
+      // handle potential errors
+      if (error) {
+        console.error(error);
+        callback(null, {
+          statusCode: error.statusCode || 501,
+          headers: { "Content-Type": "text/plain" },
+          body: `Couldn't create table ${seed.table.TableName}.`,
+        });
+        return;
+      }
+
+      // create a response
+      const response = {
+        statusCode: 200,
+        body: JSON.stringify({ result: `table ${seed.table.TableName} created` }),
+      };
+      callback(null, response);
+    });
+  }
+
   // delete the solution from the database
   dynamodb.deleteTable(params, error => {
     // handle potential errors
     if (error) {
       console.error(error);
+      if (error.code === "ResourceNotFoundException") {
+        createTable(seed);
+        return;
+      }
       callback(null, {
         statusCode: error.statusCode || 501,
         headers: { "Content-Type": "text/plain" },
@@ -32,24 +59,6 @@ module.exports.delete = (event, context, callback) => {
       return;
     }
 
-    dynamodb.createTable(seed.Table, error => {
-      // handle potential errors
-      if (error) {
-        console.error(error);
-        callback(null, {
-          statusCode: error.statusCode || 501,
-          headers: { "Content-Type": "text/plain" },
-          body: `Couldn't create table ${params.TableName}.`,
-        });
-        return;
-      }
-
-      // create a response
-      const response = {
-        statusCode: 200,
-        body: JSON.stringify({ result: `table ${process.env.DYNAMODB_TABLE} created` }),
-      };
-      callback(null, response);
-    });
+    createTable(seed);
   });
 };

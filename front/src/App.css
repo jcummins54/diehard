@@ -1,0 +1,50 @@
+body {
+  background: #e9f7ff linear-gradient(to bottom, #c0e6fa 0%,#e9f7ff 100%) no-repeat;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+  margin-top: 30px;
+}
+
+.jugContainer {
+  position: absolute;
+  display: block;
+  width: 320px;
+  left: 50%;
+  margin-left: -160px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.jugs {
+  position: relative;
+  display: block;
+  width: 320px;
+  text-align: center;
+}
+
+.jug {
+  vertical-align: bottom;
+  display: inline-block;
+  width: 160px;
+  height: 100%;
+}
+
+.results {
+  display: block;
+  margin-top: 10px;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
