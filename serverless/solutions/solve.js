@@ -6,6 +6,16 @@ module.exports.create = (id, callback) => {
   const timestamp = new Date().getTime();
 
   let data = diehard.findSolutions(id);
+
+  if (data.error !== undefined) {
+    callback(null, {
+      statusCode: 400,
+      headers: config.responseHeaders,
+      body: JSON.stringify(data),
+    });
+    return;
+  }
+
   data.id = id;
   data.createdAt = timestamp;
 

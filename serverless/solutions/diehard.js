@@ -5,7 +5,7 @@ module.exports.findSolutions = (id) => {
 
   const parts = id.split("-");
   if (parts.length !== 3) {
-    return "error";
+    return { error: "Input must be 3 numbers with a dash delimiter like '3-5-4'" };
   }
 
   const target = parseFloat(parts[2]);
@@ -23,8 +23,8 @@ module.exports.findSolutions = (id) => {
     },
   ];
 
-  if (target > jugs[0].size && target > jugs[1].size) {
-    return "error";
+  if (target <= 0 || (target > jugs[0].size && target > jugs[1].size)) {
+    return { error: "Target amount must be greater than 0 and less than the largest jug." };
   }
 
   // the greatest common denominator will tell us if there is a solution

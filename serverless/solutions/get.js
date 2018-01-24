@@ -28,7 +28,7 @@ module.exports.get = (event, context, callback) => {
       callback(null, {
         statusCode: 400,
         headers: config.responseHeaders,
-        body: errors,
+        body: JSON.stringify(errors),
       });
       return;
     }
