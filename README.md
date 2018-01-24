@@ -25,8 +25,6 @@ yarn
 Then from project root:
 ```bash
 yarn
-cd front
-yarn
 ```
 
 ## Run service offline
