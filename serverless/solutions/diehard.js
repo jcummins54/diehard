@@ -1,3 +1,5 @@
+const gcd = require("gcd");
+
 module.exports.findSolutions = (id) => {
   const RECURSION_LIMIT = 3756;
 
@@ -20,6 +22,17 @@ module.exports.findSolutions = (id) => {
       size: parseFloat(parts[1]),
     },
   ];
+
+  if (target > jugs[0].size && target > jugs[1].size) {
+    return "error";
+  }
+
+  // the greatest common denominator will tell us if there is a solution
+  // Times 1000 to support 3 decimal places
+  const gcdVal = gcd(jugs[0].size * 1000, jugs[1].size * 1000);
+  const targetModulus = (target * 1000) % gcdVal;
+  // if targetModulus !== 0 we could return no solution, 
+  // but seems more interesting to see the count before hash repeats.
 
   let stepMap = [[], []];
   let stepList = [[], []];
@@ -53,12 +66,12 @@ module.exports.findSolutions = (id) => {
         break;
 
       case "pour":
-        otherRoom = +(otherJug.size - otherJug.amount).toFixed(5);
+        otherRoom = +(otherJug.size - otherJug.amount).toFixed(2);
         if (otherRoom >= targetJug.amount) {
-          otherJug.amount = +(otherJug.amount + targetJug.amount).toFixed(5);
+          otherJug.amount = +(otherJug.amount + targetJug.amount).toFixed(2);
           targetJug.amount = 0;
         } else {
-          targetJug.amount = +(targetJug.amount - otherRoom).toFixed(5);
+          targetJug.amount = +(targetJug.amount - otherRoom).toFixed(2);
           otherJug.amount = otherJug.size;
         }
         if (otherJug.amount > targetJug.amount) {
@@ -155,6 +168,7 @@ module.exports.findSolutions = (id) => {
   const winner = findWinner();
 
   return {
+    isMultipleOfGCD: (targetModulus === 0),
     winner: winner,
     results: results,
     stepList: stepList,

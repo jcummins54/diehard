@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 export default class BasicForm extends React.Component {
 
@@ -12,8 +11,9 @@ export default class BasicForm extends React.Component {
       input: {
         marginRight: "1rem",
         fontSize: "1rem",
-        width: "5rem",
+        width: "2rem",
         height: "1.5rem",
+        marginBottom: 2,
       },
       button: {
         borderRadius: "0px",

@@ -1,4 +1,5 @@
 const AWS = require("aws-sdk");
+const config = require("./config");
 
 let options = {};
 
@@ -26,8 +27,8 @@ module.exports.delete = (event, context, callback) => {
         console.error(error);
         callback(null, {
           statusCode: error.statusCode || 501,
-          headers: { "Content-Type": "text/plain" },
-          body: `Couldn't create table ${seed.table.TableName}.`,
+          headers: config.responseHeaders,
+          body: JSON.stringify({ error: `Couldn't create table ${seed.Table.TableName}.` }),
         });
         return;
       }
@@ -35,14 +36,15 @@ module.exports.delete = (event, context, callback) => {
       // create a response
       const response = {
         statusCode: 200,
-        body: JSON.stringify({ result: `table ${seed.table.TableName} created` }),
+        headers: config.responseHeaders,
+        body: JSON.stringify({ result: `table ${seed.Table.TableName} created` }),
       };
       callback(null, response);
     });
   }
 
   // delete the solution from the database
-  dynamodb.deleteTable(params, error => {
+  dynamodb.deleteTable(params, (error, data) => {
     // handle potential errors
     if (error) {
       console.error(error);
@@ -52,12 +54,12 @@ module.exports.delete = (event, context, callback) => {
       }
       callback(null, {
         statusCode: error.statusCode || 501,
-        headers: { "Content-Type": "text/plain" },
-        body: `Couldn't delete table ${params.TableName}.`,
+        headers: config.responseHeaders,
+        body: JSON.stringify({ error: `Couldn't delete table ${params.TableName}.` }),
       });
       return;
+    } else if (data) {
+      createTable(seed);
     }
-
-    createTable(seed);
   });
 };

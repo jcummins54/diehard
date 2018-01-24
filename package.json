@@ -1,4 +1,9 @@
 {
+  "name": "diehard",
+  "version": "1.0.0",
+  "author": "Jeremy Cummins",
+  "license": "MIT",
+  "private": true,
   "scripts": {
     "start:front": "cd front && yarn start",
     "start:api": "cd serverless && yarn start",

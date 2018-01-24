@@ -34,36 +34,12 @@ provider:
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
 functions:
-  create:
-    handler: solutions/create.create
-    events:
-      - http:
-          path: solutions
-          method: post
-          cors: true
-
-  list:
-    handler: solutions/list.list
-    events:
-      - http:
-          path: solutions
-          method: get
-          cors: true
-
   get:
     handler: solutions/get.get
     events:
       - http:
           path: solutions/{id}
           method: get
-          cors: true
-
-  update:
-    handler: solutions/update.update
-    events:
-      - http:
-          path: solutions/{id}
-          method: put
           cors: true
 
   delete:

@@ -4,7 +4,9 @@ import './App.css';
 import BasicForm from './components/BasicForm';
 import Jug from './components/Jug';
 
+// TODO: use environment variables
 const BASE_URL = "http://localhost:3000/solutions/";
+// const BASE_URL = "https://zxjkw8xneg.execute-api.us-east-1.amazonaws.com/dev/solutions/";
 
 class App extends Component {
   constructor(props) {
@@ -30,7 +32,7 @@ class App extends Component {
 
   handleChange(event) {
     clearTimeout(this.animateTimeout);
-    let value = parseFloat(event.target.value);
+    let value = parseFloat(event.target.value).toFixed(2);
     if (isNaN(value)) {
       value = 0;
     }
@@ -42,7 +44,14 @@ class App extends Component {
       currentStep: 0,
       stepList: [],
     };
-    props[event.target.name] = event.target.value.toString().replace(/[^0-9.]/g, "");
+
+    // Only allow numbers and decimal
+    let val = event.target.value.toString().replace(/[^0-9.]/g, "");
+    // Restrict to 2 decimal places
+    if (val.indexOf('.') > -1) {
+      val = val.substring(0, val.indexOf('.') + 3);
+    }
+    props[event.target.name] = val;
     props[`${event.target.name}Size`] = value;
     this.setState(props);
   }
@@ -69,13 +78,12 @@ class App extends Component {
   }
 
   handleResponse(data) {
-    console.log(">>> data:", data);
     let result = "";
     let props = {};
     let shouldDoAnimation = false;
     if (data.winner === "1" || data.winner === "2") {
       shouldDoAnimation = true;
-      result = `Filling ${data.winner} is faster.`;
+      result = `Filling jug ${data.winner} first is faster.`;
       const winner = parseInt(data.winner, 10) - 1;
       const stepList = data.stepList[winner];
       props = {
@@ -85,7 +93,7 @@ class App extends Component {
         stepList: stepList,
       }
     } else {
-      result = "No winner.";
+      result = "No winner. Repeated hash or recursion limit reached.";
     }
     result = `${result} 1st round: ${data.results[0].count} steps, 2nd round: ${data.results[1].count} steps.`;
     props = {
@@ -104,9 +112,7 @@ class App extends Component {
   }
 
   doAnimation() {
-    console.log("doAnimation");
     this.setState((prevState, props) => {
-      console.log("prevState", prevState);
       if (prevState.currentStep < prevState.stepList.length - 1) {
         clearTimeout(this.animateTimeout);
         this.animateTimeout = setTimeout(() => {

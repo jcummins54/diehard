@@ -45,7 +45,7 @@ body {
   display: "block";
   border: "1px solid #CCC";
   width: 150px;
-  background: linear-gradient(left, #afafaf 0%,#eeeeee 50%,#afafaf 100%) no-repeat;
+  background: linear-gradient(to left, #afafaf 0%,#eeeeee 50%,#afafaf 100%) no-repeat;
   transition: "height .2s ease-out";
 }
 

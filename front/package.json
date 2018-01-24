@@ -1,6 +1,8 @@
 {
   "name": "front",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "author": "Jeremy Cummins",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "axios": "^0.17.1",
