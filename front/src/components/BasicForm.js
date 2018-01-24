@@ -30,8 +30,8 @@ export default class BasicForm extends React.Component {
         <input onChange={this.props.onChange} value={this.props.jug1} type="text" style={formStyle.input} name="jug1" id="jug1" />
         <label style={formStyle.label} htmlFor="jug2">Jug 2:</label>
         <input onChange={this.props.onChange} value={this.props.jug2} type="text" style={formStyle.input} name="jug2" id="jug2" />
-        <label style={formStyle.label} htmlFor="target">Target:</label>
-        <input onChange={this.props.onChange} value={this.props.target} type="text" style={formStyle.input} name="target" id="target" />
+        <label style={formStyle.label} htmlFor="goal">Goal:</label>
+        <input onChange={this.props.onChange} value={this.props.goal} type="text" style={formStyle.input} name="goal" id="goal" />
         <button style={formStyle.button} type="submit" className="mb-4 btn btn-primary">Submit</button>
       </form>
     );

@@ -13,12 +13,10 @@ class App extends Component {
     super(props);
     this.state = {
       jug1: 3.0,
-      jug1Size: 3.0,
       jug1Amount: 0.0,
       jug2: 5.0,
-      jug2Size: 5.0,
       jug2Amount: 0.0,
-      target: 4.0,
+      goal: 4.0,
       winner: "",
       result: "",
       currentStep: 0,
@@ -31,11 +29,8 @@ class App extends Component {
   }
 
   handleChange(event) {
+    // Reset values from any previous submission
     clearTimeout(this.animateTimeout);
-    let value = parseFloat(event.target.value).toFixed(2);
-    if (isNaN(value)) {
-      value = 0;
-    }
     let props = {
       winner: "",
       result: "",
@@ -52,24 +47,20 @@ class App extends Component {
       val = val.substring(0, val.indexOf('.') + 3);
     }
     props[event.target.name] = val;
-    props[`${event.target.name}Size`] = value;
     this.setState(props);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    if (this.state.jug1Size <= 0
-      || this.state.jug2Size <= 0
-      || (this.state.target <= 0)
-    ) {
-      alert("Please enter decimal amounts for jug 1, jug 2 and target.");
+    if (+this.state.jug1 <= 0 || +this.state.jug2 <= 0 || +this.state.goal <= 0) {
+      alert("Please enter decimal amounts for jug 1, jug 2 and goal.");
       return;
     }
-    if (this.state.target > this.state.jug1Size && this.state.target > this.state.jug2Size) {
-      alert("The target amount must be a number greater than 0 and less than the largest jug.");
+    if (+this.state.goal > +this.state.jug1 && +this.state.goal > +this.state.jug2) {
+      alert("The goal amount must be a number greater than 0 and less than the largest jug.");
       return;
     }
-    const id = `${this.state.jug1Size}-${this.state.jug2Size}-${this.state.target}`;
+    const id = `${this.state.jug1}-${this.state.jug2}-${this.state.goal}`;
     axios.get(`${BASE_URL}${id}`).then((response) => {
       this.handleResponse(response.data);
     }).catch((error) => {
@@ -136,12 +127,12 @@ class App extends Component {
             onSubmit={this.handleSubmit}
             jug1={this.state.jug1}
             jug2={this.state.jug2}
-            target={this.state.target}
+            goal={this.state.goal}
           />
           <div className="jugContainer">
             <div className="jugs">
-              <Jug id="jug1" amount={this.state.jug1Amount} size={this.state.jug1Size} />
-              <Jug id="jug2" amount={this.state.jug2Amount} size={this.state.jug2Size} />
+              <Jug id="jug1" amount={this.state.jug1Amount} size={this.state.jug1} />
+              <Jug id="jug2" amount={this.state.jug2Amount} size={this.state.jug2} />
             </div>
             <div className="results">{this.state.result}</div>
           </div>
