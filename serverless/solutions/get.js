@@ -11,6 +11,16 @@ module.exports.get = (event, context, callback) => {
     },
   };
 
+  const errors = validator.validate(event.pathParameters);
+  if (errors.length > 0) {
+    callback(null, {
+      statusCode: 400,
+      headers: config.responseHeaders,
+      body: JSON.stringify(errors),
+    });
+    return;
+  }
+
   // fetch solution from the database
   dynamodb.get(params, (error, result) => {
     // handle potential errors
@@ -19,16 +29,6 @@ module.exports.get = (event, context, callback) => {
         statusCode: error.statusCode || 501,
         headers: config.responseHeaders,
         body: JSON.stringify({ error: "Couldn't fetch the solution item." }),
-      });
-      return;
-    }
-
-    const errors = validator.validate(event.pathParameters);
-    if (errors.length > 0) {
-      callback(null, {
-        statusCode: 400,
-        headers: config.responseHeaders,
-        body: JSON.stringify(errors),
       });
       return;
     }

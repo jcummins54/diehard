@@ -34,7 +34,7 @@ A solution will be retrieved from DynamoDb if it already exists, otherwise it wi
 ### Example request
 ```http://localhost:3000/solutions/3-5-4```
 
-In this request the three numbers use a dash as a delimiter:`3-5-4` represents `<jug 1 amount>-<jug 2 amount>-<target amount>`.
+In this request the three numbers use a dash as a delimiter:`3-5-4` represents `<jug 1 amount>-<jug 2 amount>-<goal amount>`.
 
 
 Example Result:

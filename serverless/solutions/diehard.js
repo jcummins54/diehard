@@ -4,11 +4,8 @@ module.exports.findSolutions = (id) => {
   const RECURSION_LIMIT = 3756;
 
   const parts = id.split("-");
-  if (parts.length !== 3) {
-    return { error: "Input must be 3 numbers with a dash delimiter like '3-5-4'" };
-  }
 
-  const target = parseFloat(parts[2]);
+  const goal = parseFloat(parts[2]);
 
   let jugs = [
     {
@@ -23,14 +20,10 @@ module.exports.findSolutions = (id) => {
     },
   ];
 
-  if (target <= 0 || (target > jugs[0].size && target > jugs[1].size)) {
-    return { error: "Target amount must be greater than 0 and less than the largest jug." };
-  }
-
   // the greatest common denominator will tell us if there is a solution
   // Times 1000 to support 3 decimal places
   const gcdVal = gcd(jugs[0].size * 1000, jugs[1].size * 1000);
-  const targetModulus = (target * 1000) % gcdVal;
+  const targetModulus = (goal * 1000) % gcdVal;
   // if targetModulus !== 0 we could return no solution, 
   // but seems more interesting to see the count before hash repeats.
 
@@ -107,7 +100,7 @@ module.exports.findSolutions = (id) => {
 
     stepList[round - 1].push(stepData);
 
-    if (jug.amount === target || other.amount === target) {
+    if (jug.amount === goal || other.amount === goal) {
       endRound(count, true, hash);
       return count;
     }

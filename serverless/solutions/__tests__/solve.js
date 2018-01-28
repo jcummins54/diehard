@@ -15,15 +15,26 @@ beforeEach(() => {
 describe("create", () => {
   it("should save to the db", () => {
     const data = {
+      "id": "3-5-4",
+      "winner": "2",
       "results": [
-        "Round 1: Step 9 - Target 4 achieved! hash: { jugs: [0, 4], nextAction: \"fill\", nextJug: \"jug 1\" }",
-        "Round 2: Step 7 - Target 4 achieved! hash: { jugs: [3, 4], nextAction: \"pour\", nextJug: \"jug 1\" }",
+        {
+          "count": 9,
+          "result": true,
+          "hash": "{\"jugs\":[0,4],\"nextAction\":\"fill\",\"nextJug\":\"jug 1\"}"
+        },
+        {
+          "count": 7,
+          "result": true,
+          "hash": "{\"jugs\":[3,4],\"nextAction\":\"pour\",\"nextJug\":\"jug 1\"}"
+        },
       ],
+      "createdAt": 1517104935042,
+      "isMultipleOfGCD": true,
       "stepList": [[], []],
-      "winner": 2,
     };
     diehard.findSolutions = jest.fn();
-    diehard.findSolutions.mockReturnValue({ ...data });
+    diehard.findSolutions.mockReturnValue(data);
     expect(solve.create("3-5-4", jest.fn())).toMatchSnapshot();
   });
 });
