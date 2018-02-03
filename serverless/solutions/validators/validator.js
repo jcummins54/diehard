@@ -34,5 +34,9 @@ module.exports.validate = (data) => {
     return [{ message: "Goal amount must be greater than 0 and less than the largest jug." }];
   }
 
+  if (goal > Number.MAX_SAFE_INTEGER || jug1 > Number.MAX_SAFE_INTEGER || jug2 > Number.MAX_SAFE_INTEGER) {
+    return [{ message: `Values must be below ${Number.MAX_SAFE_INTEGER}` }];
+  }
+
   return [];
 };
