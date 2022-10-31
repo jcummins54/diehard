@@ -1,6 +1,6 @@
 # Diehard Front and Backend Demo
 
-This project contains a React Front End, and Serverless Backend API to provide solutions for the classic Diehard 2 Jugs problem.
+This project contains a React Front End, and Serverless Backend API to provide solutions for the classic Diehard 3 water jugs problem.
 
 Features:
 * Runs on AWS S3 and API Gateway/Lambda - no "server" required
