@@ -2,6 +2,8 @@
 
 This project contains a React Front End, and Serverless Backend API to provide solutions for the classic Diehard 3 water jugs problem.
 
+[Playable demo](https://react-diehard.s3.amazonaws.com/index.html)
+
 Features:
 * Runs on AWS S3 and API Gateway/Lambda - no "server" required
 * Stores data in DynamoDB (for demonstration purposes)
@@ -35,4 +37,3 @@ From project root:
 yarn start
 ```
 This will start serverless offline, providing a local API, and the React frontend. This should automatically open http://localhost:3006/ in a browser.
-
