@@ -1,65 +1,78 @@
-const AWS = require("aws-sdk");
-const config = require("./config");
+import { responseHeaders } from "./config.js";
+import { getDb, tableName } from "./dynamodb.js";
 
-let options = {};
-
-// connect to local DB if running offline
-if (process.env.IS_OFFLINE) {
-  options = {
-    region: "localhost",
-    endpoint: "http://localhost:8000",
+function createTable(db, callback) {  
+  const params = {
+    "TableName": tableName,
+    "KeySchema": [
+      {
+        "AttributeName": "id",
+        "KeyType": "HASH",
+      },
+    ],
+    "AttributeDefinitions": [
+      {
+        "AttributeName": "id",
+        "AttributeType": "S",
+      },
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 1,
+      "WriteCapacityUnits": 1,
+    },
   };
+
+  db.createTable(params, (error, data) => {
+    // handle potential errors
+    if (error) {
+      console.error(error);
+      callback(null, {
+        statusCode: error.statusCode || 501,
+        headers: responseHeaders,
+        body: JSON.stringify({ error: `Couldn't create table ${params.TableName}.` }),
+      });
+      return;
+    }
+
+    if (data) {
+      console.log(data);
+    }
+
+    // create a response
+    const response = {
+      statusCode: 200,
+      headers: responseHeaders,
+      body: JSON.stringify({ result: `table ${params.TableName} created` }),
+    };
+
+    callback(null, response);
+  });
 }
 
-const dynamodb = new AWS.DynamoDB(options);
-
-const seed = require("../offline/migrations/solutions.json");
-
-module.exports.delete = (event, context, callback) => {
+export function resetSolutionsTable(event, context, callback) {
+  const db = getDb();
   const params = {
-    TableName: process.env.DYNAMODB_TABLE,
+    TableName: tableName,
   };
 
-  function createTable(seed) {
-    dynamodb.createTable(seed.Table, error => {
-      // handle potential errors
-      if (error) {
-        console.error(error);
-        callback(null, {
-          statusCode: error.statusCode || 501,
-          headers: config.responseHeaders,
-          body: JSON.stringify({ error: `Couldn't create table ${seed.Table.TableName}.` }),
-        });
-        return;
-      }
-
-      // create a response
-      const response = {
-        statusCode: 200,
-        headers: config.responseHeaders,
-        body: JSON.stringify({ result: `table ${seed.Table.TableName} created` }),
-      };
-      callback(null, response);
-    });
-  }
-
   // delete the solution from the database
-  dynamodb.deleteTable(params, (error, data) => {
+  db.deleteTable(params, (error, data) => {
     // handle potential errors
     if (error) {
       console.error(error);
       if (error.code === "ResourceNotFoundException") {
-        createTable(seed);
+        createTable(db);
         return;
       }
       callback(null, {
         statusCode: error.statusCode || 501,
-        headers: config.responseHeaders,
+        headers: responseHeaders,
         body: JSON.stringify({ error: `Couldn't delete table ${params.TableName}.` }),
       });
       return;
     } else if (data) {
-      createTable(seed);
+      console.log(data);
+      createTable(db, callback);
     }
   });
-};
+}

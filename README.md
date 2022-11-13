@@ -13,7 +13,7 @@ Features:
 
 Install yarn if not installed:
 ```bash
-brew install yarn
+npm install --global yarn
 ```
 
 Follow instructions in `./serverless/README.md`

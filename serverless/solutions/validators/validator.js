@@ -1,7 +1,9 @@
-const Ajv = require("ajv");
+import Ajv from "ajv";
+import ajvErrors from "ajv-errors";
 const ajv = new Ajv({ allErrors: true });
-require("ajv-errors")(ajv, true);
+ajvErrors(ajv);
 
+/* eslint-disable no-useless-escape */
 const createEventSchema = {
   type: "object",
   required: ["id"],
@@ -16,7 +18,7 @@ const createEventSchema = {
 
 const validateSchema = ajv.compile(createEventSchema);
 
-module.exports.validate = (data) => {
+export function validator(data) {
   if (!validateSchema(data)) {
     return validateSchema.errors;
   }
@@ -39,4 +41,4 @@ module.exports.validate = (data) => {
   }
 
   return [];
-};
+}

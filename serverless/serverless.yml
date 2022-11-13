@@ -1,6 +1,6 @@
 service: solutions
 
-frameworkVersion: ">=1.1.0 <2.0.0"
+frameworkVersion: "3"
 
 plugins:
   - serverless-dynamodb-local
@@ -8,6 +8,8 @@ plugins:
 
 custom:
   dynamodb:
+    stages:
+      - ${sls:stage}
     start:
       port: 8000
       inMemory: true
@@ -17,21 +19,23 @@ custom:
 
 provider:
   name: aws
-  runtime: nodejs6.10
+  runtime: nodejs16.x
   environment:
-    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-        - dynamodb:DeleteTable
-        - dynamodb:CreateTable
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+    DYNAMODB_TABLE: ${self:service}-${sls:stage}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:DeleteTable
+            - dynamodb:CreateTable
+          Resource: "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
 functions:
   get:
@@ -43,7 +47,7 @@ functions:
           cors: true
 
   delete:
-    handler: solutions/delete.delete
+    handler: solutions/delete.resetSolutionsTable
     events:
       - http:
           path: solutions
@@ -56,15 +60,15 @@ resources:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
         AttributeDefinitions:
-          -
+          - 
             AttributeName: id
             AttributeType: S
         KeySchema:
-          -
+          - 
             AttributeName: id
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: ${self:provider.environment.DYNAMODB_TABLE}

@@ -4,9 +4,10 @@ import './App.css';
 import BasicForm from './components/BasicForm';
 import Jug from './components/Jug';
 
-// TODO: use environment variables
-const BASE_URL = "http://localhost:3000/solutions/";
-// const BASE_URL = "https://zxjkw8xneg.execute-api.us-east-1.amazonaws.com/dev/solutions/";
+const BASE_URL = process.env.REACT_APP_LOCAL ? "http://localhost:3000/dev/solutions/" :
+  "https://zxjkw8xneg.execute-api.us-east-1.amazonaws.com/dev/solutions/";
+
+const ANIMATION_PAUSE = 500;
 
 class App extends Component {
   constructor(props) {
@@ -78,8 +79,8 @@ class App extends Component {
       const winner = parseInt(data.winner, 10) - 1;
       const stepList = data.stepList[winner];
       props = {
-        jug1Amount: stepList[stepList.length - 1].jugs[0],
-        jug2Amount: stepList[stepList.length - 1].jugs[1],
+        jug1Amount: 0,
+        jug2Amount: 0,
         currentStep: 0,
         stepList: stepList,
       }
@@ -98,7 +99,7 @@ class App extends Component {
       clearTimeout(this.animateTimeout);
       this.animateTimeout = setTimeout(() => {
         this.doAnimation()
-      }, 300);
+      }, ANIMATION_PAUSE);
     }
   }
 
@@ -108,8 +109,9 @@ class App extends Component {
         clearTimeout(this.animateTimeout);
         this.animateTimeout = setTimeout(() => {
           this.doAnimation()
-        }, 300);
+        }, ANIMATION_PAUSE);
       }
+
       return {
         jug1Amount: prevState.stepList[prevState.currentStep].jugs[0],
         jug2Amount: prevState.stepList[prevState.currentStep].jugs[1],

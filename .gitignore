@@ -4,6 +4,7 @@ package-lock.json
 
 .DS_Store
 npm-debug.log
+.dynamodb
 .idea
 .serverless
 .serverless-resources-env

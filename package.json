@@ -1,15 +1,15 @@
 {
-  "name": "diehard",
+  "name": "diehard-serverless-demo",
   "version": "1.0.0",
+  "repository": "https://github.com/jcummins54/diehard",
   "author": "Jeremy Cummins",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "start:front": "cd front && yarn start",
     "start:api": "cd serverless && yarn start",
     "start": "npm-run-all --parallel start:front start:api"
   },
   "devDependencies": {
-    "npm-run-all": "^4.1.2"
+    "npm-run-all": "^4.1.5"
   }
 }

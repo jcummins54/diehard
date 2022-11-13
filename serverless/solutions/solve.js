@@ -1,35 +1,20 @@
-const config = require("./config");
-const dynamodb = require("./dynamodb");
-const diehard = require("./diehard");
+import { responseHeaders } from "./config.js";
+import { getDocumentClient, tableName } from "./dynamodb.js";
+import { findSolutions } from "./diehard.js";
 
-module.exports.create = (id, callback) => {
-  const timestamp = new Date().getTime();
-
-  let data = diehard.findSolutions(id);
-
-  if (data.error !== undefined) {
-    callback(null, {
-      statusCode: 400,
-      headers: config.responseHeaders,
-      body: JSON.stringify(data),
-    });
-    return;
-  }
-
-  data.id = id;
-  data.createdAt = timestamp;
-
+function createSolutionRecord(data, callback) {
+  const docClient = getDocumentClient();
   const params = {
-    TableName: process.env.DYNAMODB_TABLE,
+    TableName: tableName,
     Item: data,
   };
 
-  dynamodb.put(params, error => {
+  docClient.put(params, error => {
     // handle potential errors
     if (error) {
       callback(null, {
         statusCode: error.statusCode || 501,
-        headers: config.responseHeaders,
+        headers: responseHeaders,
         body: JSON.stringify({ error: "Couldn't create the solution item." }),
       });
       return;
@@ -37,9 +22,28 @@ module.exports.create = (id, callback) => {
 
     const response = {
       statusCode: 200,
-      headers: config.responseHeaders,
+      headers: responseHeaders,
       body: JSON.stringify(params.Item),
     };
+
     callback(null, response);
   });
-};
+}
+
+export function solve(id, callback) {
+  const data = findSolutions(id); 
+
+  if (data.error !== undefined) {
+    callback(null, {
+      statusCode: 400,
+      headers: responseHeaders,
+      body: JSON.stringify(data),
+    });
+
+    return;
+  }
+  
+  data.id = id;
+  data.createdAt = new Date().getTime();
+  createSolutionRecord(data, callback);
+}
