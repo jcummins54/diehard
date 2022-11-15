@@ -24,7 +24,7 @@ serverless dynamodb migrate (this imports schema)
 ## Run service offline
 
 ```bash
-serverless offline start
+yarn start
 ```
 
 ## Usage
@@ -32,7 +32,7 @@ serverless offline start
 A solution will be retrieved from DynamoDb if it already exists, otherwise it will be generated, saved in the DB and returned.
 
 ### Example request
-```http://localhost:3000/solutions/3-5-4```
+```curl -X GET http://localhost:3000/dev/solutions/3-5-4```
 
 In this request the three numbers use a dash as a delimiter:`3-5-4` represents `<jug 1 amount>-<jug 2 amount>-<goal amount>`.
 
@@ -175,3 +175,9 @@ Example Result:
         ]
     ]
 }```
+
+### Create or reset database table
+
+A DELETE request will drop any existing 'solutions' table and create a new one from the schema defined in ../offline/migrations/solution.json
+
+```curl -X DELETE http://localhost:3000/dev/solutions/```

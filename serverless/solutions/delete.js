@@ -1,26 +1,10 @@
 import { responseHeaders } from "./config.js";
 import { getDb, tableName } from "./dynamodb.js";
+import tableSchema from "../offline/migrations/solutions.json" assert { type: "json" };
 
 function createTable(db, callback) {  
-  const params = {
-    "TableName": tableName,
-    "KeySchema": [
-      {
-        "AttributeName": "id",
-        "KeyType": "HASH",
-      },
-    ],
-    "AttributeDefinitions": [
-      {
-        "AttributeName": "id",
-        "AttributeType": "S",
-      },
-    ],
-    "ProvisionedThroughput": {
-      "ReadCapacityUnits": 1,
-      "WriteCapacityUnits": 1,
-    },
-  };
+  const params = tableSchema.Table;
+  params.TableName = tableName;
 
   db.createTable(params, (error, data) => {
     // handle potential errors
