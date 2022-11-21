@@ -52,7 +52,6 @@ functions:
       - http:
           path: solutions
           method: delete
-          cors: true
 
 resources:
   Resources:

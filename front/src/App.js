@@ -4,6 +4,7 @@ import './App.css';
 import BasicForm from './components/BasicForm';
 import Jug from './components/Jug';
 
+// Once you deploy the serverless app, replace the BASE_URL with the GET endpoint it gives you.
 const BASE_URL = process.env.REACT_APP_LOCAL ? "http://localhost:3000/dev/solutions/" :
   "https://zxjkw8xneg.execute-api.us-east-1.amazonaws.com/dev/solutions/";
 
