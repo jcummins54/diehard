@@ -65,8 +65,8 @@ Deploying solutions to stage dev (us-east-1)
 ✔ Service deployed to stack solutions-dev (104s)
 
 endpoints:
-  GET - https://zxjkw8xneg.execute-api.us-east-1.amazonaws.com/dev/solutions/{id}
-  DELETE - https://zxjkw8xneg.execute-api.us-east-1.amazonaws.com/dev/solutions
+  GET - https://5nnnwdo6nc.execute-api.us-east-1.amazonaws.com/dev/solutions/{id}
+  DELETE - https://5nnnwdo6nc.execute-api.us-east-1.amazonaws.com/dev/solutions
 functions:
   get: solutions-dev-get (75 MB)
   delete: solutions-dev-delete (75 MB)
