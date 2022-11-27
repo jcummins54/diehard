@@ -1,6 +1,7 @@
 import gcd from "gcd";
 
-const RECURSION_LIMIT = 3756;
+// Set a recursion limit to avoid runaway recursion
+const RECURSION_LIMIT = 3000;
 
 /**
  * 
