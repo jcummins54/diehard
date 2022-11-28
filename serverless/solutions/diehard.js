@@ -194,6 +194,8 @@ export function findSolutions(id) {
   const winner = findWinner(data);
 
   return {
+    id,
+    createdAt: new Date().getTime(),
     isMultipleOfGCD: (targetModulus === 0),
     winner: winner,
     results: data.results,

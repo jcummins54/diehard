@@ -291,8 +291,13 @@ describe("findWinner", () => {
 });
 
 describe("findSolutions", () => {
+  // Mock the global Date object so the snapshots' createdAt is always the same
+  const mockDate = new Date("2022");
+  global.Date = jest.fn(() => mockDate);
+  global.Date.now = Date.now;
+  
   it("should solve the puzzle 3-5-4", () => {
-    const solutions = findSolutions("3-5-4");    
+    const solutions = findSolutions("3-5-4");
     expect(solutions).toMatchSnapshot();
   });
 

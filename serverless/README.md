@@ -181,3 +181,5 @@ Example Result:
 A DELETE request will drop any existing 'solutions' table and create a new one from the schema defined in ../offline/migrations/solution.json
 
 ```curl -X DELETE http://localhost:3000/dev/solutions/```
+
+Note that this works locally without issue. If you run against the AWS endpoint created for the delete function, you may get an error recreating the table, due to it taking a little time for AWS to drop the existing table, before it can create the new one. Typically, if you just try this endpoint again in a couple seconds, it will create the table successfully.

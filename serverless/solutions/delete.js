@@ -1,62 +1,34 @@
 import { responseHeaders } from "./config.js";
-import { getDb, tableName } from "./dynamodb.js";
-import tableSchema from "../offline/migrations/solutions.json" assert { type: "json" };
+import { createSolutionsTable, dropSolutionsTable, tableName } from "./dynamodb.js";
 
-function createTable(db, callback) {  
-  const params = tableSchema.Table;
-  params.TableName = tableName;
-
-  db.createTable(params, (error, data) => {
-    // handle potential errors
-    if (error) {
-      console.error(error);
-      callback(null, {
+export async function resetSolutionsTable() {
+  try {
+    await dropSolutionsTable();    
+  } catch (error) {
+    // ResourceNotFoundException indicates the table has never been created,
+    // so we can move on to creating the table
+    if (error.code !== "ResourceNotFoundException") {
+      return {
         statusCode: error.statusCode || 501,
         headers: responseHeaders,
-        body: JSON.stringify({ error: `Couldn't create table ${params.TableName}.` }),
-      });
-      return;
+        body: JSON.stringify({ error: `Couldn't delete table ${tableName}.` }),
+      };
     }
+  }
 
-    if (data) {
-      console.log(data);
-    }
+  try {
+    await createSolutionsTable();
 
-    // create a response
-    const response = {
+    return {
       statusCode: 200,
       headers: responseHeaders,
-      body: JSON.stringify({ result: `table ${params.TableName} created` }),
+      body: JSON.stringify({ result: `table ${tableName} created` }),
     };
-
-    callback(null, response);
-  });
-}
-
-export function resetSolutionsTable(event, context, callback) {
-  const db = getDb();
-  const params = {
-    TableName: tableName,
-  };
-
-  // delete the solution from the database
-  db.deleteTable(params, (error, data) => {
-    // handle potential errors
-    if (error) {
-      console.error(error);
-      if (error.code === "ResourceNotFoundException") {
-        createTable(db);
-        return;
-      }
-      callback(null, {
-        statusCode: error.statusCode || 501,
-        headers: responseHeaders,
-        body: JSON.stringify({ error: `Couldn't delete table ${params.TableName}.` }),
-      });
-      return;
-    } else if (data) {
-      console.log(data);
-      createTable(db, callback);
-    }
-  });
+  } catch (error) {
+    return {
+      statusCode: error.statusCode || 501,
+      headers: responseHeaders,
+      body: JSON.stringify({ error: `Couldn't create table ${tableName}.` }),
+    };
+  }
 }

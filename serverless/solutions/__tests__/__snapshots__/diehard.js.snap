@@ -2,6 +2,8 @@
 
 exports[`findSolutions should solve the puzzle 3-5-4 1`] = `
 {
+  "createdAt": 1640995200000,
+  "id": "3-5-4",
   "isMultipleOfGCD": true,
   "results": [
     {
@@ -139,6 +141,8 @@ exports[`findSolutions should solve the puzzle 3-5-4 1`] = `
 
 exports[`findSolutions should solve the puzzle 11-4-7 1`] = `
 {
+  "createdAt": 1640995200000,
+  "id": "11-4-7",
   "isMultipleOfGCD": true,
   "results": [
     {
