@@ -47,7 +47,8 @@ export async function getOrCreateSolution(id) {
   }
 }
 
-export async function get(event) {
+// eslint-disable-next-line no-unused-vars
+export async function get(event, context) {
   const errors = validator(event.pathParameters);
   if (errors.length > 0) {
     return {

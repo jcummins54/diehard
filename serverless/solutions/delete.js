@@ -1,7 +1,8 @@
 import { responseHeaders } from "./config.js";
 import { createSolutionsTable, dropSolutionsTable, tableName } from "./dynamodb.js";
 
-export async function resetSolutionsTable() {
+// eslint-disable-next-line no-unused-vars
+export async function resetSolutionsTable(event, context) {
   try {
     await dropSolutionsTable();    
   } catch (error) {
