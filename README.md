@@ -3,6 +3,7 @@
 This project contains a React Front End, and Serverless Backend API to provide solutions for the classic Diehard 3 water jugs problem.
 
 [Playable demo](https://react-diehard.s3.amazonaws.com/index.html)
+[Tutorial blog post](https://jeremycummins.substack.com/p/microservices-tutorial)
 
 Features:
 * Runs on AWS S3 and API Gateway/Lambda - no "server" required
