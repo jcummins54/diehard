@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import './App.css';
-import BasicForm from './components/BasicForm';
-import Jug from './components/Jug';
+import { Component } from "react";
+import axios from "axios";
+import "./App.css";
+import BasicForm from "./components/BasicForm";
+import Jug from "./components/Jug";
 
 // Once you deploy the serverless app, replace the BASE_URL with the GET endpoint it gives you.
 const BASE_URL = process.env.REACT_APP_LOCAL ? "http://localhost:3000/dev/solutions/" :
@@ -45,8 +45,8 @@ class App extends Component {
     // Only allow numbers and decimal
     let val = event.target.value.toString().replace(/[^0-9.]/g, "");
     // Restrict to 2 decimal places
-    if (val.indexOf('.') > -1) {
-      val = val.substring(0, val.indexOf('.') + 3);
+    if (val.indexOf(".") > -1) {
+      val = val.substring(0, val.indexOf(".") + 3);
     }
     props[event.target.name] = val;
     this.setState(props);
@@ -84,7 +84,7 @@ class App extends Component {
         jug2Amount: 0,
         currentStep: 0,
         stepList: stepList,
-      }
+      };
     } else {
       result = "No winner. Repeated hash or recursion limit reached.";
     }
@@ -99,17 +99,17 @@ class App extends Component {
     if (shouldDoAnimation) {
       clearTimeout(this.animateTimeout);
       this.animateTimeout = setTimeout(() => {
-        this.doAnimation()
+        this.doAnimation();
       }, ANIMATION_PAUSE);
     }
   }
 
   doAnimation() {
-    this.setState((prevState, props) => {
+    this.setState((prevState) => {
       if (prevState.currentStep < prevState.stepList.length - 1) {
         clearTimeout(this.animateTimeout);
         this.animateTimeout = setTimeout(() => {
-          this.doAnimation()
+          this.doAnimation();
         }, ANIMATION_PAUSE);
       }
 
@@ -117,7 +117,7 @@ class App extends Component {
         jug1Amount: prevState.stepList[prevState.currentStep].jugs[0],
         jug2Amount: prevState.stepList[prevState.currentStep].jugs[1],
         currentStep: prevState.currentStep + 1,
-      }
+      };
     });
   }
 
